@@ -1,0 +1,25 @@
+import React from 'react';
+
+import CategoryItems from './CategoryItems';
+
+class CategoryContainer extends React.Component {
+
+
+
+    render() {
+        const { active, data } = this.props;
+
+        return (
+            <div className="main-container__left-navmenu">
+                <ul className="main-container__left-navmenu__list">
+                    {data.map(item => item.ListProduct.length !== 0 ? (
+                        <CategoryItems dataFirst={active} categories={item} key={item._id} />
+                    ) : null)}
+                </ul>
+            </div>
+        );
+
+    }
+}
+
+export default CategoryContainer;
