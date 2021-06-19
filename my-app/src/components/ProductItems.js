@@ -7,42 +7,34 @@ class Product extends React.Component {
     getInfoProduct = (product) => {
         this.props.handleClickOpen(product);
     };
-    renderProduct = (item) => {
+    render() {
+        const { product } = this.props;
         return (
             <li
                 className="category-product__items"
-                // key={item._id}
                 onClick={() => {
-                    this.getInfoProduct(item);
+                    this.getInfoProduct(product);
                 }}
             >
                 <Image
                     className="category-product__items-img"
-                    src={item.image}
-                    alt={`ảnh ${item.product_name}`}
+                    src={product.image}
+                    alt={`ảnh ${product.product_name}`}
                 />
                 <div className="category-product__items-info">
                     <h5 className="category-product__items-name">
-                        {item.product_name}
+                        {product.product_name}
                     </h5>
                     <p className="category-product__items-desc">
-                        {item.description}
+                        {product.description}
                     </p>
                     <Currency
                         className="category-product__items-price"
-                        price={item.price}
+                        price={product.price}
                     />
                 </div>
                 <ButtonAdd />
             </li>
-        );
-    };
-
-    render() {
-        const { categories } = this.props;
-
-        return (
-            this.renderProduct(categories)
         );
     }
 }
