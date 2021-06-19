@@ -16,10 +16,10 @@ class ProductOption extends React.Component {
         };
     }
 
-    handleProductSize = (size, price) => {
+    handleProductSize = (item) => {
         this.setState({
-            productSize: size,
-            productPrice: price,
+            productSize: item.val,
+            productPrice: item.price,
         });
     };
 
@@ -56,6 +56,19 @@ class ProductOption extends React.Component {
                 ),
             });
         }
+    };
+
+    getInfoProduct = () => {
+        let product = {
+            product_name: this.props.infoProduct.product_name,
+            productSize: this.state.productSize,
+            nameTopping: this.state.nameTopping,
+            priceTopping: this.state.topping,
+            amount: this.state.amount,
+            totalPrice: this.state.productPrice,
+        };
+
+        this.props.getDataOpitonProduct(product);
     };
 
     render() {
@@ -111,8 +124,7 @@ class ProductOption extends React.Component {
                                                 name="radio"
                                                 onClick={() => {
                                                     this.handleProductSize(
-                                                        item.val,
-                                                        item.price
+                                                        item
                                                     );
                                                 }}
                                             />
@@ -192,7 +204,7 @@ class ProductOption extends React.Component {
                         </div>
                         <div
                             className="product-option__bot-right"
-                            onClick={this.props.onClick}
+                            onClick={this.getInfoProduct}
                         >
                             <Currency
                                 className="btn addtocart"

@@ -5,13 +5,16 @@ import CategoryContainer from "../components/CategoryContainer";
 import ProductContainer from "../components/ProductContainer";
 import NoneData from "../page/NoneData";
 
+import ProductOption from "../components/ProductOption";
 class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             newData: [],
             loading: true,
-            active: null,
+            active: null, //new
+            infoProduct: null,
+            optionClose: false,
         };
     }
 
@@ -63,8 +66,41 @@ class Main extends React.Component {
         document.getElementById(`at${id}`).classList.add("active");
     };
 
+    //new
+    handleClickClose = () => {
+        this.setState({
+            optionClose: false,
+        });
+        setTimeout(() => {
+            this.setState({
+                infoProduct: null,
+            });
+        }, 300);
+    };
+
+    getDataOpitonProduct = (data) => {
+        this.setState({
+            optionClose: false,
+        });
+
+        setTimeout(() => {
+            this.setState({
+                infoProduct: null,
+            });
+        }, 300);
+
+        console.log(data);
+    };
+
+    handleClickOpen = (product) => {
+        this.setState({
+            optionClose: true,
+            infoProduct: product,
+        });
+    };
+
     render() {
-        const { active, newData, loading } = this.state;
+        const { active, newData, loading, infoProduct } = this.state;
 
         if (loading) {
             return <PlacehoderLoading />;
@@ -79,10 +115,19 @@ class Main extends React.Component {
                             <ProductContainer
                                 getatId={this.getatId}
                                 data={newData}
+                                handleClickOpen={this.handleClickOpen}
                             />
                         </div>
                         <CartContainer />
                     </div>
+                    {infoProduct !== null ? (
+                        <ProductOption
+                            infoProduct={infoProduct}
+                            optionClose={this.state.optionClose}
+                            onClick={this.handleClickClose}
+                            getDataOpitonProduct={this.getDataOpitonProduct}
+                        />
+                    ) : null}
                 </main>
             );
         }

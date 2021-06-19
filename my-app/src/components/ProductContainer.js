@@ -4,15 +4,11 @@ import ProductItems from "./ProductItems";
 import Image from "../common/Image";
 import src_noneproduct from "../assets/img/noneproduct.png";
 
-import ProductOption from "../components/ProductOption";
-
 class ProductContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             search: "",
-            optionClose: false,
-            infoProduct: null,
             copyData: [...this.props.data],
         };
     }
@@ -62,28 +58,10 @@ class ProductContainer extends React.Component {
         window.removeEventListener("scroll", this.handleOnScroll);
     }
 
-    handleClickOpen = (product) => {
-        this.setState({
-            optionClose: true,
-            infoProduct: product,
-        });
-    };
-
-    handleClickClose = () => {
-        this.setState({
-            optionClose: false,
-        });
-        setTimeout(() => {
-            this.setState({
-                infoProduct: null,
-            });
-        }, 300);
-    };
-
     render() {
-        const { data } = this.props;
-        const { infoProduct, search, copyData } = this.state;
-        console.log(data);
+        const { data, handleClickOpen } = this.props;
+        const { search, copyData } = this.state;
+
         return (
             <div className="main-container__left-product">
                 <form className="main-container__left-product__form" action="#">
@@ -108,7 +86,7 @@ class ProductContainer extends React.Component {
                                     <ProductItems
                                         key={items._id}
                                         product={items}
-                                        handleClickOpen={this.handleClickOpen}
+                                        handleClickOpen={handleClickOpen}
                                     />
                                 ))}
                             </ul>
@@ -121,7 +99,7 @@ class ProductContainer extends React.Component {
                                 <ProductItems
                                     key={index}
                                     product={items}
-                                    handleClickOpen={this.handleClickOpen}
+                                    handleClickOpen={handleClickOpen}
                                 />
                             ))}
                         </ul>
@@ -134,14 +112,6 @@ class ProductContainer extends React.Component {
                         </div>
                     </div>
                 )}
-
-                {infoProduct !== null ? (
-                    <ProductOption
-                        infoProduct={infoProduct}
-                        optionClose={this.state.optionClose}
-                        onClick={this.handleClickClose}
-                    />
-                ) : null}
             </div>
         );
     }
