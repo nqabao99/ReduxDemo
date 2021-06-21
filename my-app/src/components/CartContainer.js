@@ -7,7 +7,7 @@ import ItemProductOrder from "../common/ItemProductOrder";
 
 class Cart extends React.Component {
     render() {
-        const { listProductOrder } = this.props;
+        const { listProductOrder, openOptionProduct } = this.props;
 
         return (
             <div className="main-container__right">
@@ -22,6 +22,7 @@ class Cart extends React.Component {
                                     <ItemProductOrder
                                         key={index}
                                         infoProduct={item}
+                                        openOptionProduct={openOptionProduct}
                                     />
                                 ))}
                             </div>

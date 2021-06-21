@@ -5,9 +5,8 @@ import Currency from "../common/Currency";
 class ItemProductOrder extends React.Component {
     render() {
         const { infoProduct } = this.props;
-
         return (
-            <div className="itemOrder">
+            <div className="itemOrder" onClick={() => { this.props.openOptionProduct(infoProduct) }}>
                 <div className="itemOrder-left">
                     <div className="itemOrder-left__amount">
                         <p>{infoProduct.amount}</p>

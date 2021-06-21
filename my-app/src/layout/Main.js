@@ -13,7 +13,7 @@ class Main extends React.Component {
             newData: [],
             loading: true,
             active: null, //new
-            infoProduct: null,
+            infoProduct: [],
             optionClose: false,
             listProductOrder: [],
         };
@@ -74,7 +74,7 @@ class Main extends React.Component {
         });
         setTimeout(() => {
             this.setState({
-                infoProduct: null,
+                infoProduct: [],
             });
         }, 300);
     };
@@ -93,10 +93,10 @@ class Main extends React.Component {
             let flag = 1;
             listProductOrder.map((item) =>
                 item.product_name === data.product_name &&
-                item.productSize === data.productSize &&
-                item.nameTopping === data.nameTopping &&
-                item.note === data.note
-                    ? ((item.amount += data.amount), (flag *= -1))
+                    item.productSize === data.productSize &&
+                    item.nameTopping === data.nameTopping &&
+                    item.note === data.note
+                    ? ((item.amount += data.amount), (item.totalPrice += data.totalPrice), (flag *= -1))
                     : (flag *= 1)
             );
             if (flag === 1) {
@@ -108,21 +108,37 @@ class Main extends React.Component {
 
         setTimeout(() => {
             this.setState({
-                infoProduct: null,
+                infoProduct: [],
             });
         }, 300);
     };
 
-    handleClickOpen = (product) => {
+    handleClickOpen = (data) => {
+        let products = {
+            product_name: data.product_name,
+            image: data.image,
+            topping_list: data.topping_list,
+            variants: data.variants
+        }
+
         this.setState({
             optionClose: true,
-            infoProduct: product,
+            infoProduct: products,
         });
     };
+
+    openOptionProduct = (data) => {
+        this.setState({
+            optionClose: true,
+            infoProduct: data,
+        });
+    }
 
     render() {
         const { active, newData, loading, infoProduct, listProductOrder } =
             this.state;
+
+
 
         if (loading) {
             return <PlacehoderLoading />;
@@ -140,9 +156,9 @@ class Main extends React.Component {
                                 handleClickOpen={this.handleClickOpen}
                             />
                         </div>
-                        <CartContainer listProductOrder={listProductOrder} />
+                        <CartContainer listProductOrder={listProductOrder} openOptionProduct={this.openOptionProduct} />
                     </div>
-                    {infoProduct !== null ? (
+                    {infoProduct.length !== 0 ? (
                         <ProductOption
                             infoProduct={infoProduct}
                             optionClose={this.state.optionClose}

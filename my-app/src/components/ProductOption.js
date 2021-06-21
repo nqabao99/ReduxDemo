@@ -13,6 +13,7 @@ class ProductOption extends React.Component {
             amount: 1,
             topping: 0,
             nameTopping: "",
+            totalPrice: 0
         };
     }
 
@@ -61,6 +62,12 @@ class ProductOption extends React.Component {
     getInfoProduct = () => {
         let product = {
             product_name: this.props.infoProduct.product_name,
+            image: this.props.infoProduct.image,
+            topping_list: this.props.infoProduct.topping_list,
+            variants: this.props.infoProduct.variants,
+
+            toppingPrice: this.state.topping,
+            productPrice: this.state.productPrice,
             productSize: this.state.productSize,
             nameTopping: this.state.nameTopping,
             amount: this.state.amount,
@@ -73,11 +80,29 @@ class ProductOption extends React.Component {
         this.props.getDataOpitonProduct(product);
     };
 
+    componentDidMount() {
+        const { infoProduct } = this.props;
+        if (infoProduct.productSize !== undefined && infoProduct.amount !== undefined && infoProduct.toppingPrice !== undefined &&
+            infoProduct.productPrice !== undefined) {
+            this.setState({
+                productSize: infoProduct.productSize,
+                amount: infoProduct.amount,
+                topping: infoProduct.toppingPrice,
+                productPrice: infoProduct.productPrice,
+            })
+        }
+
+
+    }
+
+
+
+
     render() {
         const { infoProduct, optionClose } = this.props;
         const { productSize, productPrice, amount, topping, nameTopping } =
             this.state;
-
+        console.log(infoProduct);
         return (
             <div className="overlay">
                 <div className="overlay" onClick={this.props.onClick}></div>
@@ -118,7 +143,7 @@ class ProductOption extends React.Component {
                                             <Input
                                                 checked={
                                                     item.val ===
-                                                    infoProduct.variants[0].val
+                                                        productSize
                                                         ? "checked"
                                                         : null
                                                 }
