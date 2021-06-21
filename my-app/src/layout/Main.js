@@ -15,6 +15,7 @@ class Main extends React.Component {
             active: null, //new
             infoProduct: null,
             optionClose: false,
+            listProductOrder: [],
         };
     }
 
@@ -81,6 +82,7 @@ class Main extends React.Component {
     getDataOpitonProduct = (data) => {
         this.setState({
             optionClose: false,
+            listProductOrder: this.state.listProductOrder.concat(data),
         });
 
         setTimeout(() => {
@@ -88,8 +90,6 @@ class Main extends React.Component {
                 infoProduct: null,
             });
         }, 300);
-
-        console.log(data);
     };
 
     handleClickOpen = (product) => {
@@ -100,7 +100,8 @@ class Main extends React.Component {
     };
 
     render() {
-        const { active, newData, loading, infoProduct } = this.state;
+        const { active, newData, loading, infoProduct, listProductOrder } =
+            this.state;
 
         if (loading) {
             return <PlacehoderLoading />;
@@ -118,7 +119,7 @@ class Main extends React.Component {
                                 handleClickOpen={this.handleClickOpen}
                             />
                         </div>
-                        <CartContainer />
+                        <CartContainer listProductOrder={listProductOrder} />
                     </div>
                     {infoProduct !== null ? (
                         <ProductOption

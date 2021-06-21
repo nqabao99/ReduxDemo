@@ -65,6 +65,7 @@ class ProductOption extends React.Component {
             nameTopping: this.state.nameTopping,
             priceTopping: this.state.topping,
             amount: this.state.amount,
+            note: document.getElementById("note").value,
             totalPrice: this.state.productPrice,
         };
 
@@ -184,6 +185,7 @@ class ProductOption extends React.Component {
                         >
                             <i className="fa fa-pencil"></i>
                             <Input
+                                id="note"
                                 type="text"
                                 placeholder="Thêm ghi chú món này"
                             />

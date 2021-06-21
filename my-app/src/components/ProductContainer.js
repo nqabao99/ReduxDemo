@@ -30,6 +30,8 @@ class ProductContainer extends React.Component {
             return index === self.indexOf(elem);
         });
 
+        console.log(newFilterProduct);
+
         this.setState({ search: e.target.value, copyData: newFilterProduct });
     };
 

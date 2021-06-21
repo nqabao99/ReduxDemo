@@ -1,13 +1,13 @@
 .close {
     display: none;
 }
-.seachAddInput:focus ~ .seachAdd-container{
-    visibility: visible;
-}
-.seachAdd-container{
-    visibility: hidden;
-    transition: all .1s;
-}
+// .seachAddInput:focus ~ .seachAdd-container{
+//     visibility: visible;
+// }
+// .seachAdd-container{
+//     visibility: hidden;
+//     transition: all .1s;
+// }
 
 .seachAdd {
     position: relative;

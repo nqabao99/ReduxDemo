@@ -1,18 +1,51 @@
-import React from 'react';
+import React from "react";
 
-import Button from '../common/Button';
-import SearchInput from '../common/SearchInput';
-import Currency from '../common/Currency'
-
+import Button from "../common/Button";
+import SearchInput from "../common/SearchInput";
+import Currency from "../common/Currency";
+import ItemProductOrder from "../common/ItemProductOrder";
 
 class Cart extends React.Component {
+    // getUnique = (arr, name, size, toping) => {
+    //     const unique = arr
+    //         .map((e) => e[name] && e[toping] && e[size])
+    //         .map((e, i, final) => final.indexOf(e) === i && i)
+    //         .filter((e) => arr[e])
+    //         .map((e) => arr[e]);
+
+    //     return unique;
+    // };
+
     render() {
+        const { listProductOrder } = this.props;
+
         return (
             <div className="main-container__right">
                 <div className="main-cart">
                     <div className="main-cart__top">
                         <Button text="Xem giỏ hàng" />
                     </div>
+                    {listProductOrder !== undefined &&
+                        listProductOrder.length !== 0 && (
+                            <div className="main-cart__listOrder">
+                                {listProductOrder.map((item, index) => (
+                                    <ItemProductOrder
+                                        key={index}
+                                        infoProduct={item}
+                                    />
+                                ))}
+
+                                {/* {console.log(
+                                    this.getUnique(
+                                        listProductOrder,
+                                        "product_name",
+                                        "priceTopping",
+                                        "productSize"
+                                    )
+                                )} */}
+                            </div>
+                        )}
+
                     <div className="main-cart__mid">
                         <p className="color-33">Cộng món</p>
                         <div className="total">
@@ -20,7 +53,10 @@ class Cart extends React.Component {
                             <Currency className="color-33" price="10000" />
                         </div>
                         <form className="main-cart__mid-form" action="#">
-                            <SearchInput type="text" placeholder="Nhập mã ưu đãi tại đây" />
+                            <SearchInput
+                                type="text"
+                                placeholder="Nhập mã ưu đãi tại đây"
+                            />
                             <Button className="btn-apply" text="Áp dụng" />
                         </form>
                     </div>
