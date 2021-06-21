@@ -63,10 +63,11 @@ class ProductOption extends React.Component {
             product_name: this.props.infoProduct.product_name,
             productSize: this.state.productSize,
             nameTopping: this.state.nameTopping,
-            priceTopping: this.state.topping,
             amount: this.state.amount,
             note: document.getElementById("note").value,
-            totalPrice: this.state.productPrice,
+            totalPrice:
+                this.state.amount *
+                (this.state.productPrice + this.state.topping),
         };
 
         this.props.getDataOpitonProduct(product);

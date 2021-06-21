@@ -5,7 +5,7 @@ import Currency from "../common/Currency";
 class ItemProductOrder extends React.Component {
     render() {
         const { infoProduct } = this.props;
-        // console.log(infoProduct);
+
         return (
             <div className="itemOrder">
                 <div className="itemOrder-left">
@@ -28,12 +28,7 @@ class ItemProductOrder extends React.Component {
                     </div>
                 </div>
                 <div className="itemOrder-right">
-                    <Currency
-                        price={
-                            infoProduct.amount *
-                            (infoProduct.totalPrice + infoProduct.priceTopping)
-                        }
-                    />
+                    <Currency price={infoProduct.totalPrice} />
                 </div>
             </div>
         );

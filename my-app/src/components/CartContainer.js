@@ -6,16 +6,6 @@ import Currency from "../common/Currency";
 import ItemProductOrder from "../common/ItemProductOrder";
 
 class Cart extends React.Component {
-    // getUnique = (arr, name, size, toping) => {
-    //     const unique = arr
-    //         .map((e) => e[name] && e[toping] && e[size])
-    //         .map((e, i, final) => final.indexOf(e) === i && i)
-    //         .filter((e) => arr[e])
-    //         .map((e) => arr[e]);
-
-    //     return unique;
-    // };
-
     render() {
         const { listProductOrder } = this.props;
 
@@ -34,15 +24,6 @@ class Cart extends React.Component {
                                         infoProduct={item}
                                     />
                                 ))}
-
-                                {/* {console.log(
-                                    this.getUnique(
-                                        listProductOrder,
-                                        "product_name",
-                                        "priceTopping",
-                                        "productSize"
-                                    )
-                                )} */}
                             </div>
                         )}
 

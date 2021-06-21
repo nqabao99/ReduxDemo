@@ -80,10 +80,31 @@ class Main extends React.Component {
     };
 
     getDataOpitonProduct = (data) => {
+        let { listProductOrder } = this.state;
         this.setState({
             optionClose: false,
-            listProductOrder: this.state.listProductOrder.concat(data),
         });
+
+        if (listProductOrder.length === 0) {
+            this.setState({
+                listProductOrder: [...listProductOrder, data],
+            });
+        } else {
+            let flag = 1;
+            listProductOrder.map((item) =>
+                item.product_name === data.product_name &&
+                item.productSize === data.productSize &&
+                item.nameTopping === data.nameTopping &&
+                item.note === data.note
+                    ? ((item.amount += data.amount), (flag *= -1))
+                    : (flag *= 1)
+            );
+            if (flag === 1) {
+                this.setState({
+                    listProductOrder: [...listProductOrder, data],
+                });
+            }
+        }
 
         setTimeout(() => {
             this.setState({

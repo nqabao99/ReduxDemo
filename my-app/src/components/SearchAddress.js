@@ -22,7 +22,7 @@ class SearchAddress extends React.Component {
 
         if (e.target.value.length > 3) {
             fetch(
-                `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e.target.value}&from=TCH-WEB`,
+                `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e.target.value.toLowerCase()}&from=TCH-WEB`,
                 {
                     headers: {
                         accept: "application/json, text/plain, */*",
