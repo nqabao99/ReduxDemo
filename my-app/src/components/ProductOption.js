@@ -13,7 +13,7 @@ class ProductOption extends React.Component {
             amount: 1,
             topping: 0,
             nameTopping: "",
-            totalPrice: 0
+            totalPrice: 0,
         };
     }
 
@@ -82,27 +82,28 @@ class ProductOption extends React.Component {
 
     componentDidMount() {
         const { infoProduct } = this.props;
-        if (infoProduct.productSize !== undefined && infoProduct.amount !== undefined && infoProduct.toppingPrice !== undefined &&
-            infoProduct.productPrice !== undefined) {
+        if (
+            infoProduct.productSize !== undefined &&
+            infoProduct.amount !== undefined &&
+            infoProduct.toppingPrice !== undefined &&
+            infoProduct.productPrice !== undefined &&
+            infoProduct.nameTopping !== undefined
+        ) {
             this.setState({
                 productSize: infoProduct.productSize,
                 amount: infoProduct.amount,
                 topping: infoProduct.toppingPrice,
                 productPrice: infoProduct.productPrice,
-            })
+                nameTopping: infoProduct.nameTopping,
+            });
         }
-
-
     }
-
-
-
 
     render() {
         const { infoProduct, optionClose } = this.props;
         const { productSize, productPrice, amount, topping, nameTopping } =
             this.state;
-        console.log(infoProduct);
+        //console.log(infoProduct);
         return (
             <div className="overlay">
                 <div className="overlay" onClick={this.props.onClick}></div>
@@ -142,8 +143,7 @@ class ProductOption extends React.Component {
                                         >
                                             <Input
                                                 checked={
-                                                    item.val ===
-                                                        productSize
+                                                    item.val === productSize
                                                         ? "checked"
                                                         : null
                                                 }
@@ -190,6 +190,13 @@ class ProductOption extends React.Component {
                                                                 item
                                                             );
                                                         }}
+                                                        checked={
+                                                            nameTopping.includes(
+                                                                item.product_name
+                                                            )
+                                                                ? "checked"
+                                                                : null
+                                                        }
                                                     />
                                                     <span>
                                                         {item.product_name} (

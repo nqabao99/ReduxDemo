@@ -16,6 +16,7 @@ class Main extends React.Component {
             infoProduct: [],
             optionClose: false,
             listProductOrder: [],
+            flag: -1,
         };
     }
 
@@ -80,35 +81,48 @@ class Main extends React.Component {
     };
 
     getDataOpitonProduct = (data) => {
-        let { listProductOrder } = this.state;
-        this.setState({
-            optionClose: false,
-        });
-
-        if (listProductOrder.length === 0) {
+        if (this.state.flag === -1) {
+            let { listProductOrder } = this.state;
             this.setState({
-                listProductOrder: [...listProductOrder, data],
+                optionClose: false,
             });
-        } else {
-            let flag = 1;
-            listProductOrder.map((item) =>
-                item.product_name === data.product_name &&
-                    item.productSize === data.productSize &&
-                    item.nameTopping === data.nameTopping &&
-                    item.note === data.note
-                    ? ((item.amount += data.amount), (item.totalPrice += data.totalPrice), (flag *= -1))
-                    : (flag *= 1)
-            );
-            if (flag === 1) {
+
+            if (listProductOrder.length === 0) {
                 this.setState({
                     listProductOrder: [...listProductOrder, data],
                 });
+            } else {
+                let flag = 1;
+                listProductOrder.map((item) =>
+                    item.product_name === data.product_name &&
+                    item.productSize === data.productSize &&
+                    item.nameTopping === data.nameTopping &&
+                    item.note === data.note
+                        ? ((item.amount += data.amount),
+                          (item.totalPrice += data.totalPrice),
+                          (flag *= -1))
+                        : (flag *= 1)
+                );
+                if (flag === 1) {
+                    this.setState({
+                        listProductOrder: [...listProductOrder, data],
+                    });
+                }
             }
+        } else {
+            this.setState({
+                listProductOrder: this.state.listProductOrder.fill(
+                    data,
+                    this.state.flag,
+                    this.state.flag + 1
+                ),
+            });
         }
 
         setTimeout(() => {
             this.setState({
                 infoProduct: [],
+                flag: -1,
             });
         }, 300);
     };
@@ -118,8 +132,8 @@ class Main extends React.Component {
             product_name: data.product_name,
             image: data.image,
             topping_list: data.topping_list,
-            variants: data.variants
-        }
+            variants: data.variants,
+        };
 
         this.setState({
             optionClose: true,
@@ -127,19 +141,19 @@ class Main extends React.Component {
         });
     };
 
-    openOptionProduct = (data) => {
+    openOptionProduct = (data, index) => {
         this.setState({
             optionClose: true,
             infoProduct: data,
+            flag: index,
         });
-    }
+    };
 
     render() {
         const { active, newData, loading, infoProduct, listProductOrder } =
             this.state;
 
-
-
+        //console.log(listProductOrder);
         if (loading) {
             return <PlacehoderLoading />;
         } else if (newData.length === 0) {
@@ -156,7 +170,10 @@ class Main extends React.Component {
                                 handleClickOpen={this.handleClickOpen}
                             />
                         </div>
-                        <CartContainer listProductOrder={listProductOrder} openOptionProduct={this.openOptionProduct} />
+                        <CartContainer
+                            listProductOrder={listProductOrder}
+                            openOptionProduct={this.openOptionProduct}
+                        />
                     </div>
                     {infoProduct.length !== 0 ? (
                         <ProductOption

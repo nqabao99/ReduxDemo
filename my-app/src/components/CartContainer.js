@@ -21,6 +21,7 @@ class Cart extends React.Component {
                                 {listProductOrder.map((item, index) => (
                                     <ItemProductOrder
                                         key={index}
+                                        index={index}
                                         infoProduct={item}
                                         openOptionProduct={openOptionProduct}
                                     />

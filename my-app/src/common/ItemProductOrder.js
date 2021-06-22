@@ -4,9 +4,14 @@ import "../assets/itemProductOrder.scss";
 import Currency from "../common/Currency";
 class ItemProductOrder extends React.Component {
     render() {
-        const { infoProduct } = this.props;
+        const { infoProduct, index } = this.props;
         return (
-            <div className="itemOrder" onClick={() => { this.props.openOptionProduct(infoProduct) }}>
+            <div
+                className="itemOrder"
+                onClick={() => {
+                    this.props.openOptionProduct(infoProduct, index);
+                }}
+            >
                 <div className="itemOrder-left">
                     <div className="itemOrder-left__amount">
                         <p>{infoProduct.amount}</p>
