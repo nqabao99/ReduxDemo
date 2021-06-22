@@ -7,7 +7,7 @@ import ItemProductOrder from "../common/ItemProductOrder";
 
 class Cart extends React.Component {
     render() {
-        const { listProductOrder, openOptionProduct } = this.props;
+        const { listProductOrder, listOrderClickOpenOptionBox } = this.props;
 
         return (
             <div className="main-container__right">
@@ -18,14 +18,19 @@ class Cart extends React.Component {
                     {listProductOrder !== undefined &&
                         listProductOrder.length !== 0 && (
                             <div className="main-cart__listOrder">
-                                {listProductOrder.map((item, index) => (
-                                    <ItemProductOrder
-                                        key={index}
-                                        index={index}
-                                        infoProduct={item}
-                                        openOptionProduct={openOptionProduct}
-                                    />
-                                ))}
+                                {listProductOrder.map(
+                                    (item, index) =>
+                                        item.amount !== 0 && (
+                                            <ItemProductOrder
+                                                key={index}
+                                                index={index}
+                                                infoProduct={item}
+                                                listOrderClickOpenOptionBox={
+                                                    listOrderClickOpenOptionBox
+                                                }
+                                            />
+                                        )
+                                )}
                             </div>
                         )}
 

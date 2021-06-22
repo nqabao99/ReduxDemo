@@ -13,10 +13,10 @@ class Main extends React.Component {
             newData: [],
             loading: true,
             active: null, //new
-            infoProduct: [],
-            optionClose: false,
+            infoOptionProduct: [],
+            optionBoxClose: false,
             listProductOrder: [],
-            flag: -1,
+            indexProductOrder: -1,
         };
     }
 
@@ -59,7 +59,7 @@ class Main extends React.Component {
             });
     }
 
-    getatId = (id) => {
+    getIdActive = (id) => {
         let check = document.querySelectorAll(".active");
 
         if (check.length > 0) {
@@ -68,23 +68,22 @@ class Main extends React.Component {
         document.getElementById(`at${id}`).classList.add("active");
     };
 
-    //new
-    handleClickClose = () => {
+    handleClickCloseOptionBox = () => {
         this.setState({
-            optionClose: false,
+            optionBoxClose: false,
         });
         setTimeout(() => {
             this.setState({
-                infoProduct: [],
+                infoOptionProduct: [],
             });
         }, 300);
     };
 
     getDataOpitonProduct = (data) => {
-        if (this.state.flag === -1) {
+        if (this.state.indexProductOrder === -1) {
             let { listProductOrder } = this.state;
             this.setState({
-                optionClose: false,
+                optionBoxClose: false,
             });
 
             if (listProductOrder.length === 0) {
@@ -111,23 +110,24 @@ class Main extends React.Component {
             }
         } else {
             this.setState({
+                optionBoxClose: false,
                 listProductOrder: this.state.listProductOrder.fill(
                     data,
-                    this.state.flag,
-                    this.state.flag + 1
+                    this.state.indexProductOrder,
+                    this.state.indexProductOrder + 1
                 ),
             });
         }
 
         setTimeout(() => {
             this.setState({
-                infoProduct: [],
-                flag: -1,
+                infoOptionProduct: [],
+                indexProductOrder: -1,
             });
         }, 300);
     };
 
-    handleClickOpen = (data) => {
+    handleClickOpenOptionBox = (data) => {
         let products = {
             product_name: data.product_name,
             image: data.image,
@@ -136,24 +136,31 @@ class Main extends React.Component {
         };
 
         this.setState({
-            optionClose: true,
-            infoProduct: products,
+            optionBoxClose: true,
+            infoOptionProduct: products,
         });
     };
 
-    openOptionProduct = (data, index) => {
+    listOrderClickOpenOptionBox = (data, index) => {
         this.setState({
-            optionClose: true,
-            infoProduct: data,
-            flag: index,
+            optionBoxClose: true,
+            infoOptionProduct: data,
+            indexProductOrder: index,
         });
     };
 
     render() {
-        const { active, newData, loading, infoProduct, listProductOrder } =
-            this.state;
+        const {
+            active,
+            newData,
+            loading,
+            infoOptionProduct,
+            listProductOrder,
+            optionBoxClose,
+        } = this.state;
 
-        //console.log(listProductOrder);
+        console.log(optionBoxClose);
+
         if (loading) {
             return <PlacehoderLoading />;
         } else if (newData.length === 0) {
@@ -165,21 +172,25 @@ class Main extends React.Component {
                         <div className="main-container__left">
                             <CategoryContainer active={active} data={newData} />
                             <ProductContainer
-                                getatId={this.getatId}
+                                getIdActive={this.getIdActive}
                                 data={newData}
-                                handleClickOpen={this.handleClickOpen}
+                                handleClickOpenOptionBox={
+                                    this.handleClickOpenOptionBox
+                                }
                             />
                         </div>
                         <CartContainer
                             listProductOrder={listProductOrder}
-                            openOptionProduct={this.openOptionProduct}
+                            listOrderClickOpenOptionBox={
+                                this.listOrderClickOpenOptionBox
+                            }
                         />
                     </div>
-                    {infoProduct.length !== 0 ? (
+                    {infoOptionProduct.length !== 0 ? (
                         <ProductOption
-                            infoProduct={infoProduct}
-                            optionClose={this.state.optionClose}
-                            onClick={this.handleClickClose}
+                            infoOptionProduct={infoOptionProduct}
+                            optionBoxClose={optionBoxClose}
+                            onClick={this.handleClickCloseOptionBox}
                             getDataOpitonProduct={this.getDataOpitonProduct}
                         />
                     ) : null}

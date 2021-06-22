@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import CategoryItems from './CategoryItems';
+import CategoryItems from "./CategoryItems";
 
 class CategoryContainer extends React.Component {
-
-
-
     render() {
         const { active, data } = this.props;
 
         return (
             <div className="main-container__left-navmenu">
                 <ul className="main-container__left-navmenu__list">
-                    {data.map(item => item.ListProduct.length !== 0 ? (
-                        <CategoryItems dataFirst={active} categories={item} key={item._id} />
-                    ) : null)}
+                    {data.map((item) => (
+                        <CategoryItems
+                            dataFirst={active}
+                            categories={item}
+                            key={item._id}
+                        />
+                    ))}
                 </ul>
             </div>
         );
-
     }
 }
 

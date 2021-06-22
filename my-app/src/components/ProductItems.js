@@ -5,7 +5,7 @@ import ButtonAdd from "../common/ButtonAdd";
 
 class Product extends React.Component {
     getInfoProduct = (product) => {
-        this.props.handleClickOpen(product);
+        this.props.handleClickOpenOptionBox(product);
     };
     render() {
         const { product } = this.props;

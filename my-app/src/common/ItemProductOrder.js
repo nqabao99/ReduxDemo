@@ -9,7 +9,7 @@ class ItemProductOrder extends React.Component {
             <div
                 className="itemOrder"
                 onClick={() => {
-                    this.props.openOptionProduct(infoProduct, index);
+                    this.props.listOrderClickOpenOptionBox(infoProduct, index);
                 }}
             >
                 <div className="itemOrder-left">

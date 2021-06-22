@@ -13,7 +13,7 @@ class ProductContainer extends React.Component {
         };
     }
 
-    handleSearch = (e) => {
+    handleSearchProduct = (e) => {
         let filterProduct = [];
         this.props.data.map((item) =>
             item.ListProduct.filter(
@@ -30,12 +30,10 @@ class ProductContainer extends React.Component {
             return index === self.indexOf(elem);
         });
 
-        console.log(newFilterProduct);
-
         this.setState({ search: e.target.value, copyData: newFilterProduct });
     };
 
-    handleOnScroll = () => {
+    handleOnScrollMenu = () => {
         let arr = document.querySelectorAll(".categoryActive");
         let check = window.scrollY - 35;
 
@@ -44,24 +42,24 @@ class ProductContainer extends React.Component {
             check <
                 document.getElementById(item.id).offsetTop +
                     document.getElementById(item.id).offsetHeight
-                ? this.getId(item.id)
+                ? this.getIdActive(item.id)
                 : null
         );
     };
 
-    getId = (id) => {
-        this.props.getatId(id);
+    getIdActive = (id) => {
+        this.props.getIdActive(id);
     };
 
     componentDidMount() {
-        window.addEventListener("scroll", this.handleOnScroll);
+        window.addEventListener("scroll", this.handleOnScrollMenu);
     }
     componentWillUnmount() {
-        window.removeEventListener("scroll", this.handleOnScroll);
+        window.removeEventListener("scroll", this.handleOnScrollMenu);
     }
 
     render() {
-        const { data, handleClickOpen } = this.props;
+        const { data, handleClickOpenOptionBox } = this.props;
         const { search, copyData } = this.state;
 
         return (
@@ -71,7 +69,7 @@ class ProductContainer extends React.Component {
                     <SearchInput
                         type="text"
                         placeholder="Tìm kiếm sản phẩm"
-                        onChange={this.handleSearch}
+                        onChange={this.handleSearchProduct}
                     />
                 </form>
 
@@ -88,7 +86,9 @@ class ProductContainer extends React.Component {
                                     <ProductItems
                                         key={items._id}
                                         product={items}
-                                        handleClickOpen={handleClickOpen}
+                                        handleClickOpenOptionBox={
+                                            handleClickOpenOptionBox
+                                        }
                                     />
                                 ))}
                             </ul>
@@ -101,7 +101,9 @@ class ProductContainer extends React.Component {
                                 <ProductItems
                                     key={index}
                                     product={items}
-                                    handleClickOpen={handleClickOpen}
+                                    handleClickOpenOptionBox={
+                                        handleClickOpenOptionBox
+                                    }
                                 />
                             ))}
                         </ul>
